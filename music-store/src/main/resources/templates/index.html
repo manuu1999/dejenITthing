@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            padding: 1rem;
+        }
+
+        .upload-button {
+            text-align: right;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome to the Music Store</h1>
+<div>
+    <button id="upload-button" class="float-left submit-button" >Upload Song</button>
+</div>
+
+<h2>Music List</h2>
+<ul>
+    <li>Song 1 - Artist 1</li>
+    <li>Song 2 - Artist 2</li>
+    <li>Song 3 - Artist 3</li>
+    <!-- Add dynamic content using Thymeleaf -->
+    <!-- Example: <li th:each="song : ${songs}" th:text="${song.title + ' - ' + song.artist}"></li> -->
+</ul>
+
+<script type="text/javascript">
+    document.getElementById("upload-but
+    ").onclick = function () {
+        location.href = "/upload";
+    };
+</script>
+</body>
+</html>
