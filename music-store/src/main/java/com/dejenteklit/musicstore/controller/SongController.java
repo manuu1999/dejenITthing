@@ -1,45 +1,60 @@
-/*
 package com.dejenteklit.musicstore.controller;
 
-import com.dejenteklit.musicstore.model.Artist;
-import com.dejenteklit.musicstore.model.Song;
+import com.dejenteklit.musicstore.entity.Song;
 import com.dejenteklit.musicstore.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("${com.dejenteklit.musicstore.song.path}")
+@Controller
+//@RequestMapping("/songs")
 public class SongController {
-    private final SongService songService;
 
-    @Autowired
+    private SongService songService;
     public SongController(SongService songService) {
+        super();
         this.songService = songService;
     }
 
-    @GetMapping
-    public List<Song> getSongs() {
-        return songService.getSongs();
+    @GetMapping("/songs")
+    public String listSongs(Model model) {
+        model.addAttribute("songs", songService.getAllSongs());
+        return "songs";
     }
 
-    @PostMapping
-    public void addNewSong(@RequestBody Song song) {
-        songService.addNewSong(song);
+    @GetMapping("/upload")
+    public String uploadForm(Model model) {
+        Song song = new Song();
+        model.addAttribute("song", song);
+        return "upload";
     }
 
-    @DeleteMapping(path = "{songId}")
-    public void deleteSong(@PathVariable("songId") Long songId) {
-        songService.deleteSong(songId);
+    @PostMapping("/songs")
+    public String saveSong(@ModelAttribute("song") Song song) {
+        songService.saveSong(song);
+        return "redirect:/songs";
     }
 
-    @PutMapping(path = "{songId}")
-    public void updateSong(
-            @PathVariable("songId") Long songId,
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) Artist artist) {
-        songService.updateSong(songId, title, artist);
+   /* @GetMapping("/edit/{id}")
+    public String editSongForm(@PathVariable Long id, Model model) {
+        model.addAttribute("song", songService.getSongById(id));
+        return "edit_song";
+    }*/
+
+    @PostMapping("/{id}")
+    public String updateSong(@PathVariable Long id, @ModelAttribute("song") Song song) {
+        Song existingSong = songService.getSongById(id);
+        existingSong.setTitle(song.getTitle());
+        existingSong.setArtist(song.getArtist());
+        existingSong.setAlbumArt(song.getAlbumArt());
+        songService.updateSong(existingSong);
+        return "redirect:/songs";
     }
+
+   /* @GetMapping("/{id}")
+    public String deleteSong(@PathVariable Long id) {
+        songService.deleteSongById(id);
+        return "redirect:/songs";
+    }*/
 }
-*/
