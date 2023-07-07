@@ -9,35 +9,34 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
   <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+    body {
+        font-family: Arial, sans-serif;
+    }
 
-        h1 {
-            text-align: center;
-        }
+    h1 {
+        text-align: center;
+    }
 
-        ul {
-            list-style: none;
-            padding: 0;
-        }
+    ul {
+        list-style: none;
+        padding: 0;
+    }
 
-        li {
-            margin-bottom: 1rem;
-            border: 1px solid #ccc;
-            padding: 1rem;
-        }
+    li {
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        padding: 1rem;
+    }
 
-        .upload-button {
-            text-align: center;
-            margin-top: 1rem;
-        }
+    .upload-button {
+        text-align: center;
+        margin-top: 1rem;
+    }
 
-        .upload-button button {
-            margin-left: 40%;
-        }
-    </style>
-  <!-- Include the JavaScript script -->
+    .upload-button button {
+        margin-left: 40%;
+    }
+  </style>
 </head>
 
 <body>
@@ -68,13 +67,11 @@
       </tbody>
     </table>
   </div>
-</div>
 
-<style>
-    body {
-        overflow-y: scroll;
-    }
-</style>
+  <div class="upload-button">
+    <a th:href="@{/songs/list}" class="btn btn-primary">View All Songs</a>
+  </div>
+</div>
 
 <script src="../static/js/music-store.js" type="text/javascript"></script>
 </body>

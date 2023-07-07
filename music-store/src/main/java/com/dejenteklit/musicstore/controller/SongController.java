@@ -20,12 +20,11 @@ public class SongController {
         this.songService = songService;
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public String listSongs(Model model) {
         model.addAttribute("songs", songService.getAllSongs());
         return "songs";
     }
-
 
     @GetMapping("/upload")
     public String uploadForm(Model model) {
@@ -34,15 +33,19 @@ public class SongController {
         return "upload";
     }
 
-    @PostMapping
+    @PostMapping("/upload")
     public String saveSong(@ModelAttribute("song") @Valid Song song, BindingResult bindingResult,
                            @RequestParam("audioFile") MultipartFile audioFile,
-                           @RequestParam("albumArtFile") MultipartFile albumArtFile) {
+                           @RequestParam("albumArtFile") MultipartFile albumArtFile, Model model) {
         if (bindingResult.hasErrors()) {
             return "upload";
         }
 
-        songService.saveSong(song, audioFile, albumArtFile);
-        return "redirect:/songs";
+        Song savedSong = songService.saveSong(song, audioFile, albumArtFile);
+
+        // Add the saved song to the model attributes
+        model.addAttribute("newSong", savedSong);
+
+        return "redirect:/songs/list"; // Redirect to the songs list page
     }
 }
